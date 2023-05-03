@@ -107,13 +107,34 @@ class LinkedList {
         }
         return this
     }
+
+    shift() {
+        if (!this.head) return undefined;
+        let temp = this.head;
+        this.head = this.head.next;
+        temp.next = null;
+        this.length--;
+        if (this.length === 0) {
+            this.tail = null;
+        }
+        return temp;
+    }
+
+    get(index: number) {
+        if (index < 0 || index >= this.length) return undefined;
+        let temp = this.head;
+        for(let i=0; i<index; i++){
+            temp = temp!.next
+        }
+        return temp;
+    }
 }
 
 function test() {
     let myLinkedList = new LinkedList(4);
     myLinkedList.push(5);
     myLinkedList.push(6);
-    myLinkedList.unshift(8);
+    console.log(myLinkedList.get(1));
     
     myLinkedList.getHead();
     myLinkedList.getTail();
