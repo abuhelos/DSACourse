@@ -128,13 +128,47 @@ class LinkedList {
         }
         return temp;
     }
+
+    set(index: number, value: number) {
+        let temp = this.get(index);
+        if (temp) {
+            temp.value = value
+            return true
+        }
+        return false
+    }
+
+    insert(index: number, value: number){
+        if (index < 0 || index > this.length) return undefined;
+        if (index === 0) return this.unshift(value);
+        if (index === this.length) return this.push(index);
+        const newNode = new LinkedNode(value);
+        let temp = this.get(index-1);
+        newNode.next = temp!.next;
+        temp!.next = newNode;
+        this.length++;
+        return true;
+    }
+
+    remove(index: number){
+        if (index < 0 || index >= this.length) return undefined;
+        if (index === 0) return this.shift();
+        if (index === this.length - 1) return this.pop();
+        const before = this.get(index - 1);
+        const temp = before!.next;
+        before!.next = temp!.next;
+        temp!.next = null;
+        this.length--;
+        return temp;
+    }
 }
 
 function test() {
     let myLinkedList = new LinkedList(4);
     myLinkedList.push(5);
     myLinkedList.push(6);
-    console.log(myLinkedList.get(1));
+    myLinkedList.insert(2,3);
+    myLinkedList.remove(2);
     
     myLinkedList.getHead();
     myLinkedList.getTail();
