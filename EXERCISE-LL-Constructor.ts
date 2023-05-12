@@ -161,6 +161,21 @@ class LinkedList {
         this.length--;
         return temp;
     }
+
+    reverse() {
+        let temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+        let prev = null;
+        let next = temp!.next;
+        for (let i = 0; i < this.length; i++) {
+            next = temp!.next;
+            temp!.next = prev;
+            prev = temp;
+            temp = next;
+        }
+        return this
+    }
 }
 
 function test() {
@@ -169,6 +184,7 @@ function test() {
     myLinkedList.push(6);
     myLinkedList.insert(2,3);
     myLinkedList.remove(2);
+    myLinkedList.reverse();
     
     myLinkedList.getHead();
     myLinkedList.getTail();
